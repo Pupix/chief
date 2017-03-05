@@ -1,0 +1,38 @@
+<script>
+    window.Chief = window.Chief || {};
+
+    /**
+     * A class mixin used by all the elements that need to invoke Chief Application commands.
+     *
+     * @function Chief.Invoker
+     *
+     * @param {Class} superclass - An instance of an HTMLElement
+     * @returns {Class}
+     */
+    window.Chief.Invoker = superclass => class extends superclass {
+
+        /**
+         * Fired when a command is invoked and needs to be executed by the application.
+         *
+         * @event CHIEF:INVOKE_COMMAND
+         * @param {String} name
+         * @bubbles
+         * @cancelable
+         * @composed
+         */
+
+        /**
+         * Invokes a command by dispatching an event that
+         * will be handled by the Chief Application
+         *
+         * @method invoke
+         * @param {string} name - The name of the command to be invoked
+         * @param {...Any} [payload] - List of arguments to be passed to the command
+         */
+        invoke(name, ...payload) {
+            const event = new Event('CHIEF:INVOKE_COMMAND', { bubbles: true, cancelable: true, composed: true });
+            event.detail = { name, payload };
+            this.dispatchEvent(event);
+        }
+    };
+</script>

@@ -1,0 +1,26 @@
+{
+  "name": "Chief",
+  "authors": [
+    "Pupix <manolea.robert@gmail.com>"
+  ],
+  "description": "Keep in charge of your Polymer application.",
+  "main": "",
+  "keywords": [
+    "web-component",
+    "chief",
+    "polymer",
+    "commands"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#2.0.0-rc.1"
+  }
+}

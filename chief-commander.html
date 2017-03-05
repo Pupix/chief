@@ -1,0 +1,37 @@
+<script>
+    window.Chief = window.Chief || {};
+
+    /**
+     * A class mixin used to bundle commands within a single Chief Commander.
+     * All the methods, except those preceded by underscore `_` will assigned to the application as commands.
+     *
+     * @function Chief.Commander
+     *
+     * @param {Class} superclass - An instance of an HTMLElement
+     * @returns {Class}
+     */
+    window.Chief.Commander = superclass => class extends superclass {
+
+        connectedCallback() {
+            super.connectedCallback();
+
+            this._host = this.getRootNode().host;
+            this._commands = Object.getOwnPropertyNames(this.constructor.prototype);
+
+            this._commands.forEach(command => {
+                // Ignore private or constructor methods.
+                if (command.startsWith('_') || command === 'constructor') { return; }
+
+                this._host.addCommand(command, this[command]);
+            });
+        }
+
+        disconnectedCallback() {
+            super.disconnectedCallback();
+
+            this._commands.forEach(command => {
+                this._host.removeCommand(command, this[command]);
+            });
+        }
+    };
+</script>
