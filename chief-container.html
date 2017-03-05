@@ -17,48 +17,46 @@
          */
         window.Chief.Container = superclass => class extends Chief.Invoker(superclass) {
 
-            static get config() {
+            static get properties() {
                 return {
-                    properties: {
 
-                        /**
-                         * Namespace of the container element. Used to distinguish different
-                         * applications from one another. By default the namespace is the
-                         * `localName`'s prefix of the element.
-                         */
-                        namespace: {
-                            type: String,
-                            readOnly: true,
-                            value() {
-                                return this.localName.match(/(.*?)-/)[1];
-                            }
-                        },
+                    /**
+                     * Namespace of the container element. Used to distinguish different
+                     * applications from one another. By default the namespace is the
+                     * `localName`'s prefix of the element.
+                     */
+                    namespace: {
+                        type: String,
+                        readOnly: true,
+                        value() {
+                            return this.localName.match(/(.*?)-/)[1];
+                        }
+                    },
 
-                        /**
-                         * Application state, shared among application and all container elements.
-                         * This property is initialized when element is attached.
-                         */
-                        state: {
-                            type: Object
-                        },
+                    /**
+                     * Application state, shared among application and all container elements.
+                     * This property is initialized when element is attached.
+                     */
+                    state: {
+                        type: Object
+                    },
 
-                        /**
-                         * Application-level object that allows all containers to access
-                         * the application element. This property is shared among all container
-                         * elements and has `element` field initialized with reference to application
-                         * element. Any container element can access application element using
-                         * `getApplication()` method.
-                         */
-                        application: {
-                            type: Object,
-                            value() {
-                                application[this.namespace] = application[this.namespace] || {
-                                    element: null,
-                                    containerElements: []
-                                };
+                    /**
+                     * Application-level object that allows all containers to access
+                     * the application element. This property is shared among all container
+                     * elements and has `element` field initialized with reference to application
+                     * element. Any container element can access application element using
+                     * `getApplication()` method.
+                     */
+                    application: {
+                        type: Object,
+                        value() {
+                            application[this.namespace] = application[this.namespace] || {
+                                element: null,
+                                containerElements: []
+                            };
 
-                                return application[this.namespace];
-                            }
+                            return application[this.namespace];
                         }
                     }
                 };

@@ -13,34 +13,34 @@
      */
     window.Chief.Application = superclass => class extends Chief.Container(superclass) {
 
-        static get config() {
+        static get properties() {
             return {
-                properties: {
-                    /**
-                     * The registry of commands at the application's disposal.
-                     *
-                     * @property commands
-                     */
-                    commands: {
-                        type: Object,
-                        value: {}
-                    },
-
-                    /**
-                     * If set, the application will enable `debug` mode
-                     *
-                     * @property debug
-                     */
-                    debug: {
-                        type: Boolean,
-                        value: false
-                    }
+                /**
+                 * The registry of commands at the application's disposal.
+                 *
+                 * @property commands
+                 */
+                commands: {
+                    type: Object,
+                    value: {}
                 },
 
-                observers: [
-                    '__stateChanged(state.*)'
-                ]
+                /**
+                 * If set, the application will enable `debug` mode
+                 *
+                 * @property debug
+                 */
+                debug: {
+                    type: Boolean,
+                    value: false
+                }
             };
+        }
+
+        static get observers() {
+            return [
+                '__stateChanged(state.*)'
+            ]
         }
 
         /** PUBLIC *********************************************************************************/
