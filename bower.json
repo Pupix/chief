@@ -1,10 +1,14 @@
 {
-  "name": "Chief",
+  "name": "chief",
+  "description": "Keep in charge of your Polymer application.",
+  "version": "0.10.0",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0-rc.7"
+  },
   "authors": [
     "Pupix <manolea.robert@gmail.com>"
   ],
-  "description": "Keep in charge of your Polymer application.",
-  "main": "",
+  "main": "chief-application.html",
   "keywords": [
     "web-component",
     "chief",
@@ -19,8 +23,5 @@
     "bower_components",
     "test",
     "tests"
-  ],
-  "dependencies": {
-    "polymer": "Polymer/polymer#2.0.0-rc.1"
-  }
+  ]
 }
