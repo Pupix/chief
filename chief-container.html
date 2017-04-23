@@ -3,90 +3,48 @@
 <script>
     window.Chief = window.Chief || {};
 
-    (function () {
-        const application = {};
+    /**
+     * A class mixin used by all the elements that need to
+     * access and be informed by the Chief Application's state.
+     *
+     * @function Chief.Container
+     *
+     * @param {Class} superclass - An instance of an HTMLElement
+     * @returns {Class}
+     */
+    window.Chief.Container = superclass => class extends Chief.Invoker(superclass) {
 
-        /**
-         * A class mixin used by all the elements that need to
-         * access and be informed by the Chief Application's state.
-         *
-         * @function Chief.Container
-         *
-         * @param {Class} superclass - An instance of an HTMLElement
-         * @returns {Class}
-         */
-        window.Chief.Container = superclass => class extends Chief.Invoker(superclass) {
+        static get properties() {
+            return {
 
-            static get properties() {
-                return {
-
-                    /**
-                     * Namespace of the container element. Used to distinguish different
-                     * applications from one another. By default the namespace is the
-                     * `localName`'s prefix of the element.
-                     */
-                    namespace: {
-                        type: String,
-                        readOnly: true,
-                        value() {
-                            return this.localName.match(/(.*?)-/)[1];
-                        }
-                    },
-
-                    /**
-                     * Application state, shared among application and all container elements.
-                     * This property is initialized when element is attached.
-                     */
-                    state: {
-                        type: Object
-                    },
-
-                    /**
-                     * Application-level object that allows all containers to access
-                     * the application element. This property is shared among all container
-                     * elements and has `element` field initialized with reference to application
-                     * element. Any container element can access application element using
-                     * `getApplication()` method.
-                     */
-                    application: {
-                        type: Object,
-                        value() {
-                            application[this.namespace] = application[this.namespace] || {
-                                element: null,
-                                containerElements: []
-                            };
-
-                            return application[this.namespace];
-                        }
-                    }
-                };
-            }
-
-            /** PUBLIC *********************************************************************************/
-
-            getApplication() {
-                return this.get('application.element');
-            }
-
-            /** LIFECYCLE *******************************************************************************/
-
-            connectedCallback() {
-                super.connectedCallback();
-
-                this.push('application.containerElements', this);
-
-                // Set application state to container elements
-                if (this.get('application.element.state')) {
-                    this.set('state', this.get('application.element.state'));
+                /**
+                 * Application state, shared among application and all container elements.
+                 * This property is initialized when element is attached.
+                 */
+                state: {
+                    type: Object
                 }
-            }
+            };
+        }
 
-            disconnectedCallback() {
-                super.disconnectedCallback();
+        /** LIFECYCLE *******************************************************************************/
 
-                const idx = this.get('application.containerElements').indexOf(this);
-                this.splice('application.containerElements', idx);
+        connectedCallback() {
+            super.connectedCallback();
+
+            this.push('application.containerElements', this);
+
+            // Set application state to container elements
+            if (this.get('application.element.state')) {
+                this.set('state', this.get('application.element.state'));
             }
-        };
-    }());
+        }
+
+        disconnectedCallback() {
+            super.disconnectedCallback();
+
+            const idx = this.get('application.containerElements').indexOf(this);
+            this.splice('application.containerElements', idx);
+        }
+    };
 </script>

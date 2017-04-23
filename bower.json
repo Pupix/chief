@@ -1,7 +1,7 @@
 {
   "name": "chief",
   "description": "Keep in charge of your Polymer application.",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0-rc.7"
   },
